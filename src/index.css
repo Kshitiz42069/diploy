@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+/* light */
+@font-face {
+  font-family: 'gelatoSans';
+  src: url('./assets/fonts/GelatoSans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* regular */
+@font-face {
+  font-family: 'gelatoSans';
+  src: url('./assets/fonts/GelatoSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* medium */
+@font-face {
+  font-family: 'gelatoSans';
+  src: url('./assets/fonts/GelatoSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
