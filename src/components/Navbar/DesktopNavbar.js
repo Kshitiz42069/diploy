@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ReactComponent as Headphones } from '../../assets/icons/headphones.svg'
 import globe from '../../assets/icons/globe.svg'
 import arrow from '../../assets/icons/arrow.svg'
 import cart from '../../assets/icons/cart.svg'
 import { ReactComponent as User } from '../../assets/icons/user.svg' 
 function DesktopNavbar() {
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+
+  const categories = [
+    { name: 'Products', subcategories: ['Best Seller', 'Man Clothing', 'Woman Clothing','Kids & baby Clothing','wall art','calender','cards'] },
+    { name: 'Start Selling', subcategories: ['Print on demand', 'Setup your business','sell custom products','integrations','partner service'] },
+    { name: 'Tools and Apps', subcategories: ['Tools & apps overview', 'Auto file sync','design maker','product creation tools','mockup studio','price navigator'] },
+    { name: 'Pricing', subcategories: [] },
+    { name: 'Resources', subcategories: ['Resource Center', 'Gelato Academy','Customer Stories'] },
+    { name: 'Pro Sellers', subcategories: [] },
+    { name: 'GelatoConnect', subcategories: ['GelatoConnect', 'Logistics','Workflow'] },
+  ];
+
+  const handleMouseEnter = (category) => {
+    setHoveredCategory(category);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredCategory(null); // Hide the subcategory when the mouse leaves
+  };
   return (
     <div className='hidden lg:block pt-4 bg-white border-b-2 font-myFont'>
       {/* top */}
@@ -28,34 +47,35 @@ function DesktopNavbar() {
       <hr />
       {/* bottom */}
       <div className='flex items-center px-[2rem]'>
-        <div className='flex items-center justify-between hover:bg-[#E8E8E8] py-4 px-4'>
-            <p className='text-sm font-medium'>Products</p>
-            <img className='w-6 h-6 text-black' src={arrow} alt="" />
+      {categories.map((category, index) => (
+        <div
+          key={index}
+          className='relative'
+          onMouseEnter={() => handleMouseEnter(category.name)}
+          onMouseLeave={handleMouseLeave}
+        >
+          {/* Category Button */}
+          <div className='flex items-center justify-between hover:bg-[#E8E8E8] py-4 px-4'>
+            <p className='text-sm font-medium'>{category.name}</p>
+            {category.subcategories.length > 0 && (
+              <img className='w-6 h-6 text-black' src={arrow} alt="arrow" />
+            )}
+          </div>
+
+          {/* Subcategories - Visible only if hovered */}
+          {hoveredCategory === category.name && category.subcategories.length > 0 && (
+            <div className='absolute left-0 top-full bg-white w-[15rem] border shadow-lg'>
+              {category.subcategories.map((sub, idx) => (
+                <div key={idx} className='px-[2rem] font-medium text-sm py-4 hover:bg-gray-200 flex items-center justify-between'>
+                  {sub}
+                  <img className='w-6 h-6 text-black' src={arrow} alt="arrow" />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-        <div className='flex items-center justify-between hover:bg-[#E8E8E8] py-4 px-4'>
-            <p className='text-sm font-medium'>Start Selling</p>
-            <img className='w-6 h-6 text-black' src={arrow} alt="" />
-        </div>
-        <div className='flex items-center justify-between hover:bg-[#E8E8E8] py-4 px-4'>
-            <p className='text-sm font-medium'>Toola and apps</p>
-            <img className='w-6 h-6 text-black' src={arrow} alt="" />
-        </div>
-        <div className='flex items-center justify-between hover:bg-[#E8E8E8] py-4 px-4'>
-            <p className='text-sm font-medium'>Pricing</p>
-            <img className='w-6 h-6 text-black' src={arrow} alt="" />
-        </div>
-        <div className='flex items-center justify-between hover:bg-[#E8E8E8] py-4 px-4'>
-            <p className='text-sm font-medium'>Resources</p>
-            <img className='w-6 h-6 text-black' src={arrow} alt="" />
-        </div>
-        <div className='flex items-center justify-between hover:bg-[#E8E8E8] py-4 px-4'>
-            <p className='text-sm font-medium'>Pro Sellers</p>
-        </div>
-        <div className='flex items-center justify-between hover:bg-[#E8E8E8] py-4 px-4'>
-            <p className='text-sm font-medium'>GelatoConnect</p>
-            <img className='w-6 h-6 text-black' src={arrow} alt="" />
-        </div>
-      </div>
+      ))}
+    </div>
     </div>
   )
 }
